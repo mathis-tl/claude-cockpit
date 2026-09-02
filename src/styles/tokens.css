@@ -1,0 +1,72 @@
+:root {
+  color-scheme: light;
+
+  /* Surfaces — light, neutral, Apple-Store-like. Color comes from imagery, not the canvas. */
+  --canvas: #f5f5f7;
+  --surface: #ffffff;
+  --surface-sunken: #f0f0f2;
+  --surface-hover: #f2f2f4;
+  --surface-raised-hover: #ececee;
+
+  /* Ink — near-black text, never pure black. */
+  --ink: #1d1d1f;
+  --ink-dim: rgba(29, 29, 31, 0.72);
+  --ink-muted: rgba(29, 29, 31, 0.55);
+  --ink-faint: rgba(29, 29, 31, 0.38);
+  --hairline: #e5e5ea;
+  --hairline-strong: #d2d2d7;
+
+  /* Claude — the single reserved accent. Restrained strictly to CTAs, active/focus/selected states. */
+  --claude: #d97757;
+  --claude-strong: #b85e3a;
+  --claude-ink: #9c4c2b; /* AA-safe on light surfaces for small text/links */
+  --claude-soft: rgba(217, 119, 87, 0.12);
+  --claude-dim: rgba(217, 119, 87, 0.32);
+  --claude-wash: rgba(217, 119, 87, 0.08);
+
+  /* Overlay — modal/drawer backdrop, derived from ink. */
+  --overlay: rgba(29, 29, 31, 0.4);
+
+  /* Stack presence — tonal ink, three opacity steps, never a hue. */
+  --ink-status-active: rgba(29, 29, 31, 1);
+  --ink-status-occasional: rgba(29, 29, 31, 0.55);
+  --ink-status-idle: rgba(29, 29, 31, 0.22);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 8px 20px -14px rgba(0, 0, 0, 0.16);
+  --shadow-card-hover: 0 1px 2px rgba(0, 0, 0, 0.04), 0 14px 28px -14px rgba(0, 0, 0, 0.22);
+  --shadow-drawer: -32px 0 56px -20px rgba(0, 0, 0, 0.18);
+  --shadow-popover: 0 4px 8px rgba(0, 0, 0, 0.05), 0 16px 40px -12px rgba(0, 0, 0, 0.18);
+
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", "Inter",
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "Cascadia Code", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Camera move between map states: long enough to read as travel, not drift. */
+  --transition-camera: 520ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --transition-fast: 0ms;
+    --transition-base: 0ms;
+    --transition-camera: 0ms;
+  }
+}

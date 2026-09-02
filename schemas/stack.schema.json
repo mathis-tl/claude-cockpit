@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Claude Cockpit Stack",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "stackVersion",
+    "name",
+    "updatedAt",
+    "components"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "stackVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "principles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaultWorkflow": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "status",
+          "scope",
+          "role",
+          "whenToUse",
+          "whenNotToUse",
+          "automation"
+        ],
+        "additionalProperties": true
+      }
+    },
+    "stackFooter": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

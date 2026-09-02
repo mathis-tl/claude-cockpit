@@ -1,0 +1,922 @@
+{
+  "schemaVersion": 1,
+  "guideVersion": "2.0.0",
+  "updatedAt": "2026-09-01",
+  "categories": [
+    {
+      "id": "start",
+      "label": "Démarrer / reprendre",
+      "description": "Poser le cadre avant d'écrire du code : nouveau projet, reprise d'un repo existant ou question simple.",
+      "connections": [
+        "build",
+        "debug",
+        "session"
+      ],
+      "icon": "spark",
+      "image": "/illustrations/start.svg",
+      "mapRole": "station",
+      "position": {
+        "x": 200,
+        "y": 380
+      },
+      "next": [
+        "build"
+      ],
+      "references": []
+    },
+    {
+      "id": "build",
+      "label": "Construire",
+      "description": "Implémenter — petite modification ou feature complète — du plan au diff vérifié.",
+      "connections": [
+        "start",
+        "debug",
+        "research",
+        "quality"
+      ],
+      "icon": "blocks",
+      "image": "/illustrations/build.svg",
+      "mapRole": "hub",
+      "position": {
+        "x": 700,
+        "y": 380
+      },
+      "next": [
+        "quality"
+      ],
+      "references": []
+    },
+    {
+      "id": "debug",
+      "label": "Comprendre / debugger",
+      "description": "Tracer une architecture ou une root cause avant de modifier quoi que ce soit.",
+      "connections": [
+        "start",
+        "build",
+        "research",
+        "quality"
+      ],
+      "icon": "bug",
+      "image": "/illustrations/debug.svg",
+      "mapRole": "station",
+      "position": {
+        "x": 420,
+        "y": 750
+      },
+      "next": [],
+      "references": []
+    },
+    {
+      "id": "research",
+      "label": "Rechercher / décider",
+      "description": "Comparer des options ou vérifier des faits externes avant une décision coûteuse à inverser.",
+      "connections": [
+        "build",
+        "debug",
+        "stack"
+      ],
+      "icon": "branch",
+      "image": "/illustrations/research.svg",
+      "mapRole": "station",
+      "position": {
+        "x": 980,
+        "y": 130
+      },
+      "next": [],
+      "references": []
+    },
+    {
+      "id": "quality",
+      "label": "Vérifier / reviewer",
+      "description": "Obtenir des preuves — vérification puis review indépendante si le risque le justifie — avant de déclarer terminé.",
+      "connections": [
+        "build",
+        "debug",
+        "session",
+        "final"
+      ],
+      "icon": "check",
+      "image": "/illustrations/quality.svg",
+      "mapRole": "station",
+      "position": {
+        "x": 1230,
+        "y": 380
+      },
+      "next": [
+        "final"
+      ],
+      "references": []
+    },
+    {
+      "id": "final",
+      "label": "Final",
+      "description": "Clore proprement : vérification, review indépendante si le risque le justifie, résumé de passation et rapport [STACK].",
+      "connections": [
+        "quality"
+      ],
+      "icon": "flag",
+      "image": "/illustrations/final.svg",
+      "mapRole": "terminal",
+      "position": {
+        "x": 1620,
+        "y": 380
+      },
+      "next": [],
+      "references": [
+        "verify-work",
+        "fresh-review"
+      ]
+    },
+    {
+      "id": "session",
+      "label": "Session / contexte",
+      "description": "Garder une session cohérente : contexte, historique, travail en parallèle.",
+      "connections": [
+        "start",
+        "quality"
+      ],
+      "icon": "layers",
+      "image": "/illustrations/session.svg",
+      "mapRole": "band",
+      "position": {
+        "x": 900,
+        "y": 900
+      },
+      "next": [],
+      "references": []
+    },
+    {
+      "id": "stack",
+      "label": "Stack / sécurité",
+      "description": "Savoir quelle brique sert à quoi, et scanner avant d'installer une extension tierce.",
+      "connections": [
+        "research"
+      ],
+      "icon": "stack",
+      "image": "/illustrations/stack.svg",
+      "mapRole": "band",
+      "position": {
+        "x": 900,
+        "y": 1030
+      },
+      "next": [],
+      "references": []
+    }
+  ],
+  "quickCommands": [
+    {
+      "id": "context",
+      "label": "/context",
+      "command": "/context",
+      "purpose": "Voir ce qui occupe la fenêtre de contexte.",
+      "tags": [
+        "context",
+        "tokens"
+      ]
+    },
+    {
+      "id": "compact",
+      "label": "/compact",
+      "command": "/compact",
+      "purpose": "Compacter une session longue qui reste sur le même objectif.",
+      "tags": [
+        "context",
+        "session"
+      ]
+    },
+    {
+      "id": "clear",
+      "label": "/clear",
+      "command": "/clear",
+      "purpose": "Repartir proprement pour un sujet sans rapport.",
+      "tags": [
+        "context",
+        "session"
+      ]
+    },
+    {
+      "id": "rename",
+      "label": "/rename",
+      "command": "/rename <nom>",
+      "purpose": "Nommer une session importante pour la retrouver.",
+      "tags": [
+        "session"
+      ]
+    },
+    {
+      "id": "resume",
+      "label": "Resume",
+      "command": "claude --resume",
+      "purpose": "Choisir et reprendre une session précédente.",
+      "tags": [
+        "session",
+        "resume"
+      ]
+    },
+    {
+      "id": "continue",
+      "label": "Continue",
+      "command": "claude --continue",
+      "purpose": "Continuer la dernière conversation pertinente.",
+      "tags": [
+        "session",
+        "resume"
+      ]
+    },
+    {
+      "id": "headroom-doctor",
+      "label": "Headroom doctor",
+      "command": "headroom doctor",
+      "purpose": "Diagnostiquer le routage Headroom.",
+      "tags": [
+        "headroom",
+        "diagnostic"
+      ]
+    },
+    {
+      "id": "headroom-perf",
+      "label": "Headroom perf",
+      "command": "headroom perf",
+      "purpose": "Voir les statistiques d'optimisation Headroom.",
+      "tags": [
+        "headroom",
+        "tokens"
+      ]
+    },
+    {
+      "id": "claude-direct",
+      "label": "Bypass Headroom",
+      "command": "claude-direct",
+      "purpose": "Lancer Claude sans Headroom pour comparer ou diagnostiquer.",
+      "tags": [
+        "headroom",
+        "diagnostic"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "new-project",
+      "category": "start",
+      "title": "Nouveau projet de zéro",
+      "icon": "spark",
+      "summary": "Transformer une idée en architecture et premier incrément sans partir trop vite dans le code.",
+      "tags": [
+        "new",
+        "project",
+        "architecture",
+        "plan",
+        "zero"
+      ],
+      "whenToUse": [
+        "Tu pars d'un dossier vide ou d'une idée encore peu structurée."
+      ],
+      "whenNotToUse": [
+        "Le projet existe déjà et possède une architecture à comprendre."
+      ],
+      "stack": [
+        "Agent Reach si choix techniques actuels nécessaires",
+        "frontend-design si UI substantielle",
+        "verification-loop avant de considérer le premier incrément terminé"
+      ],
+      "steps": [
+        "Définir objectif utilisateur, contraintes, non-objectifs et critère de réussite.",
+        "Demander 2-3 architectures seulement si le choix est réellement structurant.",
+        "Rechercher les solutions existantes avant de créer une infrastructure maison.",
+        "Choisir le plus petit premier incrément vertical.",
+        "Créer la structure du repo et le CLAUDE.md projet.",
+        "Implémenter par incréments vérifiables.",
+        "Vérifier build/tests et documenter la commande de lancement."
+      ],
+      "promptTemplate": "Je démarre un nouveau projet :\n\n<OBJECTIF>\n\nContraintes :\n- <CONTRAINTE 1>\n- <CONTRAINTE 2>\n\nAvant de coder :\n1. clarifie l'architecture minimale nécessaire ;\n2. identifie les choix réellement structurants ;\n3. recherche les solutions existantes si une dépendance ou intégration importante est en jeu ;\n4. propose un premier incrément vertical testable ;\n5. ne crée pas d'abstraction inutile.\n\nCommence par le plan, pas par le code.",
+      "antiPatterns": [
+        "Demander « construis tout » sans limites.",
+        "Choisir dix services avant d'avoir un premier flux vertical.",
+        "Créer des abstractions pour des besoins hypothétiques."
+      ],
+      "related": [
+        "better-implementation",
+        "external-research",
+        "verify-work"
+      ],
+      "automation": "mixed",
+      "featured": true
+    },
+    {
+      "id": "resume-project",
+      "category": "start",
+      "title": "Reprendre un projet existant",
+      "icon": "refresh",
+      "summary": "Reconstruire rapidement le contexte utile sans relire tout le repository.",
+      "tags": [
+        "resume",
+        "existing",
+        "project",
+        "architecture",
+        "repo"
+      ],
+      "whenToUse": [
+        "Tu reviens après plusieurs jours/semaines ou tu découvres un repo."
+      ],
+      "whenNotToUse": [
+        "Tu reprends simplement la même session Claude encore fraîche."
+      ],
+      "stack": [
+        "Codebase Memory"
+      ],
+      "steps": [
+        "Lire CLAUDE.md/README et l'état Git.",
+        "Utiliser Codebase Memory pour architecture, points d'entrée et zones actives.",
+        "Vérifier les conclusions importantes dans les sources.",
+        "Identifier l'objectif en cours et les modifications non terminées.",
+        "Ne charger ensuite que le scope utile à la prochaine tâche."
+      ],
+      "promptTemplate": "Familiarise-toi avec ce repository sans rien modifier.\n\nUtilise Codebase Memory pour comprendre :\n- architecture ;\n- composants principaux ;\n- points d'entrée ;\n- services externes ;\n- tests ;\n- zones à risque ;\n- état pertinent pour la prochaine tâche.\n\nVérifie ensuite les conclusions importantes dans les fichiers source.\nNe lis pas tout le repo si des requêtes ciblées suffisent.",
+      "antiPatterns": [
+        "Lire récursivement tout le repo.",
+        "Refaire la même cartographie à chaque petite tâche."
+      ],
+      "related": [
+        "understand-code",
+        "resume-session"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "resume-session",
+      "category": "session",
+      "title": "Reprendre une session Claude",
+      "icon": "history",
+      "summary": "Continuer un objectif existant sans repartir de zéro.",
+      "tags": [
+        "resume",
+        "continue",
+        "session",
+        "history"
+      ],
+      "whenToUse": [
+        "La tâche précédente n'est pas terminée ou tu veux conserver ses décisions."
+      ],
+      "whenNotToUse": [
+        "Tu changes complètement d'objectif."
+      ],
+      "stack": [],
+      "steps": [
+        "Utiliser une session nommée pour les travaux importants.",
+        "Reprendre avec `claude --resume` ou `claude --continue`.",
+        "Demander un état synthétique si nécessaire.",
+        "Utiliser /compact si le même objectif a accumulé beaucoup de contexte.",
+        "Utiliser /clear pour un sujet sans rapport."
+      ],
+      "promptTemplate": "Avant de continuer, résume uniquement :\n- objectif actuel ;\n- décisions déjà prises ;\n- fichiers modifiés ;\n- validation déjà effectuée ;\n- blocage actuel ;\n- prochaine action recommandée.\n\nNe recommence pas l'analyse du projet si elle est déjà établie.",
+      "antiPatterns": [
+        "Garder des sujets sans rapport dans la même session.",
+        "Redemander toute l'architecture par habitude."
+      ],
+      "related": [
+        "context-management"
+      ],
+      "automation": "manual",
+      "featured": true
+    },
+    {
+      "id": "ask-question",
+      "category": "start",
+      "title": "Poser une question simple",
+      "icon": "message",
+      "summary": "Obtenir une réponse ciblée sans déclencher un workflow disproportionné.",
+      "tags": [
+        "question",
+        "explain",
+        "simple"
+      ],
+      "whenToUse": [
+        "Tu veux comprendre un concept, une fonction ou une décision."
+      ],
+      "whenNotToUse": [
+        "Tu demandes une modification importante."
+      ],
+      "stack": [
+        "Codebase Memory seulement si la réponse dépend d'une structure non triviale du repo"
+      ],
+      "steps": [
+        "Poser la question directement.",
+        "Préciser le niveau de détail souhaité.",
+        "Demander les fichiers précis si la réponse porte sur le repo."
+      ],
+      "promptTemplate": "Explique-moi <SUJET> dans ce projet.\n\nJe veux :\n- la réponse courte d'abord ;\n- les fichiers/éléments qui la justifient ;\n- les conséquences pratiques.\n\nNe modifie rien.",
+      "antiPatterns": [
+        "Demander un agent pour une question qui tient dans un fichier.",
+        "Charger des skills sans rapport."
+      ],
+      "related": [
+        "understand-code"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "understand-code",
+      "category": "debug",
+      "title": "Comprendre une zone du code",
+      "icon": "map",
+      "summary": "Tracer architecture, dépendances et flux avant de toucher au code.",
+      "tags": [
+        "architecture",
+        "code",
+        "dependency",
+        "call path",
+        "blast radius"
+      ],
+      "whenToUse": [
+        "Le comportement traverse plusieurs modules ou le blast radius est incertain."
+      ],
+      "whenNotToUse": [
+        "La modification est évidente et locale."
+      ],
+      "stack": [
+        "Codebase Memory"
+      ],
+      "steps": [
+        "Formuler le composant ou flux à comprendre.",
+        "Utiliser Codebase Memory pour scope/call paths.",
+        "Identifier les fichiers réellement importants.",
+        "Vérifier le graphe dans le code source.",
+        "Répondre avec une carte mentale concise."
+      ],
+      "promptTemplate": "Utilise Codebase Memory pour comprendre <ZONE/FLUX>.\n\nIdentifie :\n- point d'entrée ;\n- composants impliqués ;\n- dépendances ;\n- call path ;\n- états/données critiques ;\n- blast radius.\n\nVérifie ensuite les conclusions importantes dans les fichiers source.\nNe modifie rien.",
+      "antiPatterns": [
+        "Prendre le graphe comme vérité finale sans vérifier le source.",
+        "Lire des centaines de fichiers sans scope."
+      ],
+      "related": [
+        "debug-bug",
+        "better-implementation"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "small-change",
+      "category": "build",
+      "title": "Petite modification",
+      "icon": "edit",
+      "summary": "Faire un changement évident sans cérémonial inutile.",
+      "tags": [
+        "small",
+        "edit",
+        "copy",
+        "style",
+        "minor"
+      ],
+      "whenToUse": [
+        "Changement local, faible risque, comportement évident."
+      ],
+      "whenNotToUse": [
+        "Blast radius inconnu, logique métier ou comportement sensible."
+      ],
+      "stack": [],
+      "steps": [
+        "Décrire le changement précisément.",
+        "Réutiliser le pattern existant.",
+        "Modifier le minimum.",
+        "Lancer la vérification ciblée pertinente."
+      ],
+      "promptTemplate": "Modifie <ÉLÉMENT> pour <RÉSULTAT>.\nRéutilise le pattern existant.\nFais le changement minimal et vérifie uniquement ce qui est pertinent.",
+      "antiPatterns": [
+        "Déclencher TDD + fresh review pour une couleur.",
+        "Refactorer la zone entière pendant une petite correction."
+      ],
+      "related": [
+        "feature",
+        "verify-work"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "feature",
+      "category": "build",
+      "title": "Nouvelle feature importante",
+      "icon": "blocks",
+      "summary": "Comprendre, planifier, implémenter et vérifier une feature à blast radius non trivial.",
+      "tags": [
+        "feature",
+        "plan",
+        "implementation",
+        "blast radius"
+      ],
+      "whenToUse": [
+        "Feature multi-fichiers, API, data model, flux utilisateur ou intégration."
+      ],
+      "whenNotToUse": [
+        "Changement trivial/local."
+      ],
+      "stack": [
+        "Codebase Memory",
+        "tdd-adaptive si comportement risqué",
+        "verification-loop",
+        "fresh-code-reviewer si risque significatif"
+      ],
+      "steps": [
+        "Comprendre l'architecture concernée.",
+        "Trouver les patterns existants.",
+        "Déterminer le blast radius.",
+        "Rechercher à l'extérieur seulement si utile.",
+        "Proposer un plan.",
+        "Appliquer TDD adaptatif si pertinent.",
+        "Implémenter le plus petit changement cohérent.",
+        "Vérifier.",
+        "Fresh review si risque significatif."
+      ],
+      "promptTemplate": "Je veux implémenter <FEATURE>.\n\nAvant de modifier :\n1. comprends l'architecture concernée ;\n2. utilise Codebase Memory si le blast radius n'est pas trivial ;\n3. trouve les patterns existants à réutiliser ;\n4. vérifie les conclusions dans les sources ;\n5. identifie risques et blast radius ;\n6. propose un plan.\n\nNe modifie encore rien.",
+      "antiPatterns": [
+        "Commencer à coder avant de comprendre le flux.",
+        "Créer une nouvelle abstraction sans vérifier l'existant."
+      ],
+      "related": [
+        "better-implementation",
+        "verify-work",
+        "fresh-review"
+      ],
+      "automation": "mixed",
+      "featured": true
+    },
+    {
+      "id": "debug-bug",
+      "category": "debug",
+      "title": "Debugger un bug",
+      "icon": "bug",
+      "summary": "Trouver la root cause avant de patcher le symptôme.",
+      "tags": [
+        "bug",
+        "debug",
+        "root cause",
+        "tdd",
+        "red green"
+      ],
+      "whenToUse": [
+        "Bug reproductible, stacktrace, état incohérent ou comportement inattendu."
+      ],
+      "whenNotToUse": [
+        "Demande de feature sans bug existant."
+      ],
+      "stack": [
+        "Codebase Memory si chemin non trivial",
+        "tdd-adaptive si reproductible",
+        "verification-loop",
+        "fresh-code-reviewer si complexe/risqué"
+      ],
+      "steps": [
+        "Décrire symptôme, reproduction et résultat attendu.",
+        "Tracer le chemin d'exécution.",
+        "Formuler une hypothèse de root cause.",
+        "Vérifier dans le source.",
+        "Si pertinent, écrire un regression test et confirmer RED.",
+        "Faire le fix minimal.",
+        "Confirmer GREEN puis tests adjacents.",
+        "Vérifier la modification.",
+        "Fresh review si le bug touche une zone sensible."
+      ],
+      "promptTemplate": "Investigate ce bug :\n\n<BUG / LOG / REPRO>\n\nTrouve la root cause avant de modifier.\nTrace le chemin d'exécution avec Codebase Memory si nécessaire, puis vérifie précisément les fichiers impliqués.\nSi le bug est reproductible et qu'un test apporte de la valeur, utilise tdd-adaptive : regression test -> RED -> fix minimal -> GREEN.\nEnsuite lance les vérifications pertinentes.",
+      "antiPatterns": [
+        "Patch du premier `if` suspect.",
+        "Écrire le test après coup pour coller au fix.",
+        "Modifier plusieurs sous-systèmes avant d'avoir une root cause."
+      ],
+      "related": [
+        "understand-code",
+        "verify-work",
+        "fresh-review"
+      ],
+      "automation": "mixed",
+      "featured": true
+    },
+    {
+      "id": "better-implementation",
+      "category": "research",
+      "title": "Réfléchir à une meilleure implémentation",
+      "icon": "branch",
+      "summary": "Comparer des options avant d'engager une décision structurante.",
+      "tags": [
+        "architecture",
+        "compare",
+        "design",
+        "tradeoff",
+        "implementation"
+      ],
+      "whenToUse": [
+        "Plusieurs architectures semblent plausibles ou la décision est coûteuse à inverser."
+      ],
+      "whenNotToUse": [
+        "Une solution évidente suit déjà le pattern du repo."
+      ],
+      "stack": [
+        "Codebase Memory",
+        "Agent Reach si l'état actuel des libs/pratiques compte",
+        "Subagents seulement pour hypothèses réellement indépendantes"
+      ],
+      "steps": [
+        "Définir critères de décision et contraintes.",
+        "Identifier le pattern actuel du repo.",
+        "Produire 2-3 options maximum.",
+        "Comparer complexité, risque, migration, performance et maintenance.",
+        "Rechercher les faits externes actuels si nécessaire.",
+        "Recommander une option avec raison falsifiable."
+      ],
+      "promptTemplate": "Avant d'implémenter <SUJET>, compare les meilleures approches possibles.\n\nContraintes : <CONTRAINTES>\n\n1. commence par les patterns existants dans le repo ;\n2. utilise Codebase Memory pour le blast radius ;\n3. recherche les faits externes actuels uniquement si nécessaire ;\n4. compare 2-3 options sur complexité, risque, migration, testabilité et maintenance ;\n5. recommande une option.\n\nNe code pas encore.",
+      "antiPatterns": [
+        "Lister 10 architectures théoriques.",
+        "Choisir une techno parce qu'elle est nouvelle.",
+        "Ignorer le coût de migration."
+      ],
+      "related": [
+        "external-research",
+        "feature"
+      ],
+      "automation": "mixed",
+      "featured": true
+    },
+    {
+      "id": "external-research",
+      "category": "research",
+      "title": "Recherche externe actuelle",
+      "icon": "globe",
+      "summary": "Vérifier docs, releases, GitHub et retours terrain avant une décision dépendante du monde extérieur.",
+      "tags": [
+        "web",
+        "docs",
+        "github",
+        "research",
+        "current",
+        "release"
+      ],
+      "whenToUse": [
+        "API/lib/version actuelle, intégration, comparaison d'outils, breaking changes."
+      ],
+      "whenNotToUse": [
+        "La réponse est entièrement dans le repo."
+      ],
+      "stack": [
+        "Agent Reach"
+      ],
+      "steps": [
+        "Définir la question et la fraîcheur requise.",
+        "Prioriser docs officielles.",
+        "Vérifier repo/release notes/issues.",
+        "Ajouter communauté seulement si expérience réelle utile.",
+        "Séparer faits sourcés et recommandation."
+      ],
+      "promptTemplate": "Recherche les informations actuelles sur <SUJET>.\n\nPriorité :\n1. documentation officielle ;\n2. repo officiel ;\n3. releases/issues ;\n4. communauté si utile.\n\nDonne les faits importants, leurs implications pour notre projet et une recommandation.",
+      "antiPatterns": [
+        "Faire confiance à un article ancien pour une API récente.",
+        "Faire une recherche externe quand le repo suffit."
+      ],
+      "related": [
+        "better-implementation"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "verify-work",
+      "category": "quality",
+      "title": "Vérifier le travail",
+      "icon": "check",
+      "summary": "Obtenir des preuves avant de déclarer une modification terminée.",
+      "tags": [
+        "verify",
+        "test",
+        "build",
+        "lint",
+        "typecheck",
+        "done"
+      ],
+      "whenToUse": [
+        "Feature, bug fix, refactor, migration ou changement significatif terminé."
+      ],
+      "whenNotToUse": [
+        "Très petite modification évidente à faible risque."
+      ],
+      "stack": [
+        "verification-loop"
+      ],
+      "steps": [
+        "Détecter les commandes canoniques du repo.",
+        "Lancer d'abord les checks ciblés.",
+        "Élargir selon le blast radius.",
+        "Inspecter le diff final.",
+        "Distinguer erreurs nouvelles et préexistantes.",
+        "Rapporter ce qui n'a pas pu être vérifié."
+      ],
+      "promptTemplate": "Vérifie le travail actuel avant de le considérer terminé.\nUtilise verification-loop.\nLance les commandes réellement pertinentes du repo, inspecte le diff final et indique clairement PASS / FAIL / NOT RUN ainsi que les risques restants.",
+      "antiPatterns": [
+        "Dire « tout est bon » sans commandes exécutées.",
+        "Installer de nouveaux outils juste pour vérifier."
+      ],
+      "related": [
+        "fresh-review",
+        "feature",
+        "debug-bug"
+      ],
+      "automation": "manual",
+      "featured": true
+    },
+    {
+      "id": "fresh-review",
+      "category": "quality",
+      "title": "Review indépendante",
+      "icon": "eye",
+      "summary": "Faire relire un diff significatif dans un contexte séparé.",
+      "tags": [
+        "review",
+        "agent",
+        "fresh",
+        "diff",
+        "second opinion"
+      ],
+      "whenToUse": [
+        "Auth, paiements, migrations, grosse feature, refactor risqué, bug complexe."
+      ],
+      "whenNotToUse": [
+        "Petite modification à faible risque."
+      ],
+      "stack": [
+        "fresh-code-reviewer"
+      ],
+      "steps": [
+        "Finir l'implémentation et la vérification d'abord.",
+        "Déléguer le diff au fresh-code-reviewer.",
+        "Laisser le reviewer demander seulement le contexte manquant.",
+        "Traiter CRITICAL/HIGH puis juger MEDIUM.",
+        "Relancer les checks impactés après correction."
+      ],
+      "promptTemplate": "Use the fresh-code-reviewer agent to independently review the completed implementation and current diff.\nDo not modify anything.\nFocus on correctness, regressions, architecture, security, edge cases and missing tests.\nReturn only evidence-based findings ordered by severity.",
+      "antiPatterns": [
+        "Donner au reviewer tout le raisonnement de l'implémenteur.",
+        "Spawner un reviewer pour une typo."
+      ],
+      "related": [
+        "verify-work"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "context-management",
+      "category": "session",
+      "title": "Gérer une session longue",
+      "icon": "layers",
+      "summary": "Garder le contexte utile sans transformer une session en fourre-tout.",
+      "tags": [
+        "context",
+        "compact",
+        "clear",
+        "tokens",
+        "session"
+      ],
+      "whenToUse": [
+        "La conversation devient longue ou tu changes d'objectif."
+      ],
+      "whenNotToUse": [
+        "Session courte et cohérente."
+      ],
+      "stack": [
+        "Headroom transparent"
+      ],
+      "steps": [
+        "Une session = un objectif cohérent.",
+        "Utiliser /context pour inspecter la fenêtre.",
+        "Utiliser /compact pour continuer le même objectif.",
+        "Utiliser /clear pour un nouveau sujet.",
+        "Nommer les sessions importantes.",
+        "Ne pas demander à Claude de relire inutilement ce qui est déjà établi."
+      ],
+      "promptTemplate": "/compact Preserve:\n- architecture decisions\n- files modified\n- current failing test\n- remaining implementation steps",
+      "antiPatterns": [
+        "Mélanger cinq features sans rapport.",
+        "Utiliser des subagents comme solution automatique à tout problème de contexte."
+      ],
+      "related": [
+        "resume-session"
+      ],
+      "automation": "mixed"
+    },
+    {
+      "id": "parallel-work",
+      "category": "session",
+      "title": "Travailler en parallèle",
+      "icon": "split",
+      "summary": "Choisir entre subagents et worktrees selon le type de parallélisme.",
+      "tags": [
+        "parallel",
+        "agent",
+        "worktree",
+        "multi"
+      ],
+      "whenToUse": [
+        "Investigations indépendantes ou plusieurs features simultanées."
+      ],
+      "whenNotToUse": [
+        "Une seule tâche séquentielle."
+      ],
+      "stack": [
+        "Subagents pour parallélisme interne",
+        "Worktrees pour branches/features indépendantes"
+      ],
+      "steps": [
+        "Utiliser 1 subagent pour une grosse investigation bornée.",
+        "Utiliser 2-3 seulement pour hypothèses réellement indépendantes.",
+        "Utiliser des worktrees lorsque plusieurs tâches modifient du code en parallèle.",
+        "Éviter que deux sessions écrivent dans le même checkout."
+      ],
+      "promptTemplate": "Décompose cette investigation en tâches réellement indépendantes.\nN'utilise des subagents que si l'isolation de contexte apporte une valeur claire.\nMaximum 2-3 investigations parallèles sauf justification.",
+      "antiPatterns": [
+        "Swarm de 10 agents pour une modal.",
+        "Deux sessions qui modifient les mêmes fichiers."
+      ],
+      "related": [
+        "fresh-review",
+        "context-management"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "third-party-install",
+      "category": "stack",
+      "title": "Installer un outil externe",
+      "icon": "shield",
+      "summary": "Scanner avant d'ajouter un MCP, skill, plugin, agent ou hook.",
+      "tags": [
+        "install",
+        "security",
+        "skillspector",
+        "mcp",
+        "plugin",
+        "agent"
+      ],
+      "whenToUse": [
+        "Toute extension tierce de l'infrastructure agent."
+      ],
+      "whenNotToUse": [
+        "Dépendance applicative ordinaire traitée par le workflow du projet."
+      ],
+      "stack": [
+        "SkillSpector"
+      ],
+      "steps": [
+        "Identifier source et commit/version exacts.",
+        "Scanner le matériel réellement utilisé.",
+        "Inspecter HIGH/CRITICAL.",
+        "Vérifier scripts, réseau, secrets, persistence et config mutation.",
+        "Installer le minimum nécessaire seulement."
+      ],
+      "promptTemplate": "Avant d'installer <OUTIL>, identifie sa source/version exacte et passe le matériel pertinent dans SkillSpector avec scan statique.\nExplique les findings HIGH/CRITICAL et inspecte manuellement scripts, réseau, secrets, persistence et modifications de config avant toute installation.",
+      "antiPatterns": [
+        "Installer un bundle complet pour une seule skill.",
+        "Traiter un score statique comme verdict sans lire les findings."
+      ],
+      "related": [
+        "stack-map"
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "stack-map",
+      "category": "stack",
+      "title": "Quel outil sert à quoi ?",
+      "icon": "stack",
+      "summary": "Carte mentale rapide de la stack actuelle.",
+      "tags": [
+        "stack",
+        "cbm",
+        "reach",
+        "headroom",
+        "skills",
+        "agent",
+        "graphify"
+      ],
+      "whenToUse": [
+        "Tu hésites sur la bonne brique ou veux expliquer/transmettre la stack."
+      ],
+      "whenNotToUse": [],
+      "stack": [
+        "Codebase Memory = code interne",
+        "Agent Reach = monde extérieur",
+        "Skills = procédures spécialisées",
+        "Subagents = contexte isolé",
+        "SkillSpector = sécurité supply-chain",
+        "Headroom = optimisation transparente",
+        "Graphify = graph visuel/multimodal ponctuel"
+      ],
+      "steps": [
+        "Commencer par l'intention.",
+        "Utiliser le moins de briques possible.",
+        "Ne jamais invoquer une brique juste parce qu'elle est disponible."
+      ],
+      "promptTemplate": "Pour cette tâche, utilise uniquement les composants de la stack qui apportent une valeur réelle. Explique ton choix dans le footer [STACK].",
+      "antiPatterns": [
+        "Penser qu'une réponse est meilleure parce qu'elle utilise plus d'outils."
+      ],
+      "related": [
+        "third-party-install"
+      ],
+      "automation": "manual"
+    }
+  ]
+}

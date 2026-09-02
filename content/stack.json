@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "stackVersion": "1.0.0",
+  "name": "Claude Code Lean Engineering Stack",
+  "updatedAt": "2026-08-31",
+  "principles": [
+    "Use the smallest useful workflow for the task.",
+    "Prefer targeted context over repository-wide loading.",
+    "Verify graph conclusions against source files.",
+    "Do not invoke skills or subagents merely because they are available.",
+    "Use fresh independent review only when risk justifies it."
+  ],
+  "defaultWorkflow": [
+    "UNDERSTAND",
+    "SCOPE",
+    "SOURCE",
+    "PLAN",
+    "CHANGE",
+    "VERIFY",
+    "REVIEW"
+  ],
+  "components": [
+    {
+      "id": "claude-code",
+      "name": "Claude Code",
+      "kind": "orchestrator",
+      "status": "active",
+      "scope": "global",
+      "role": "Primary engineering assistant and orchestrator.",
+      "whenToUse": [
+        "All normal coding and repository work."
+      ],
+      "whenNotToUse": [],
+      "configPath": "~/.claude/",
+      "automation": "manual"
+    },
+    {
+      "id": "global-claude-md",
+      "name": "Global CLAUDE.md",
+      "kind": "rules",
+      "status": "active",
+      "scope": "global",
+      "role": "Global orchestration rules for the engineering stack.",
+      "whenToUse": [
+        "Loaded automatically in Claude Code sessions."
+      ],
+      "whenNotToUse": [
+        "Do not put project-specific volatile details here."
+      ],
+      "configPath": "~/.claude/CLAUDE.md",
+      "automation": "automatic"
+    },
+    {
+      "id": "codebase-memory",
+      "name": "Codebase Memory",
+      "kind": "mcp",
+      "status": "active",
+      "scope": "global",
+      "role": "Structural code intelligence: architecture, dependencies, call paths and blast radius.",
+      "whenToUse": [
+        "Architecture is unclear.",
+        "Execution path is non-trivial.",
+        "Blast radius matters.",
+        "Finding callers, consumers or dependencies."
+      ],
+      "whenNotToUse": [
+        "Trivial edits or obvious single-file changes."
+      ],
+      "configPath": "~/.claude.json",
+      "notes": [
+        "Primary code graph system.",
+        "Verify important graph conclusions against source files."
+      ],
+      "automation": "manual"
+    },
+    {
+      "id": "agent-reach",
+      "name": "Agent Reach",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "External/current research across supported web and developer sources.",
+      "whenToUse": [
+        "Official docs, current GitHub/release research, community evidence when useful."
+      ],
+      "whenNotToUse": [
+        "When the repository already contains enough evidence."
+      ],
+      "configPath": "~/.claude/skills/agent-reach/",
+      "automation": "manual"
+    },
+    {
+      "id": "frontend-design",
+      "name": "frontend-design",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "Specialized workflow for substantial frontend and UI design/implementation.",
+      "whenToUse": [
+        "Substantial frontend/UI work where design quality matters."
+      ],
+      "whenNotToUse": [
+        "Tiny styling or copy changes."
+      ],
+      "configPath": "~/.claude/skills/frontend-design/",
+      "automation": "manual"
+    },
+    {
+      "id": "mcp-builder",
+      "name": "mcp-builder",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "Workflow for MCP development.",
+      "whenToUse": [
+        "Designing or implementing an MCP."
+      ],
+      "whenNotToUse": [
+        "Normal application features."
+      ],
+      "configPath": "~/.claude/skills/mcp-builder/",
+      "automation": "manual"
+    },
+    {
+      "id": "skill-creator",
+      "name": "skill-creator",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "Workflow for creating or improving Claude skills.",
+      "whenToUse": [
+        "Creating a reusable skill/workflow."
+      ],
+      "whenNotToUse": [
+        "One-off instructions that do not deserve a skill."
+      ],
+      "configPath": "~/.claude/skills/skill-creator/",
+      "automation": "manual"
+    },
+    {
+      "id": "tdd-adaptive",
+      "name": "tdd-adaptive",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "Selective test-first workflow for risky behavior changes.",
+      "whenToUse": [
+        "Reproducible bugs.",
+        "Business logic.",
+        "APIs, auth, payments, persistence, validation.",
+        "Risky refactors."
+      ],
+      "whenNotToUse": [
+        "Trivial CSS/copy/config edits where meaningful tests add little value."
+      ],
+      "configPath": "~/.claude/skills/tdd-adaptive/",
+      "automation": "manual"
+    },
+    {
+      "id": "verification-loop",
+      "name": "verification-loop",
+      "kind": "skill",
+      "status": "active",
+      "scope": "global",
+      "role": "Final engineering quality gate: build, types, lint, tests, runtime when useful, final diff.",
+      "whenToUse": [
+        "Before claiming significant engineering work is complete."
+      ],
+      "whenNotToUse": [
+        "Trivial low-risk edits."
+      ],
+      "configPath": "~/.claude/skills/verification-loop/",
+      "automation": "manual"
+    },
+    {
+      "id": "fresh-code-reviewer",
+      "name": "fresh-code-reviewer",
+      "kind": "agent",
+      "status": "active",
+      "scope": "global",
+      "role": "Independent fresh-context review of significant completed changes.",
+      "whenToUse": [
+        "Auth or sensitive behavior.",
+        "Architecture or migrations.",
+        "Large features.",
+        "Risky refactors.",
+        "Complex bug fixes."
+      ],
+      "whenNotToUse": [
+        "Trivial edits."
+      ],
+      "configPath": "~/.claude/agents/fresh-code-reviewer.md",
+      "automation": "manual"
+    },
+    {
+      "id": "skillspector",
+      "name": "SkillSpector",
+      "kind": "security",
+      "status": "active",
+      "scope": "global-cli",
+      "role": "Supply-chain security gate before installing third-party agent infrastructure.",
+      "whenToUse": [
+        "Before installing third-party skills, MCPs, plugins, agents, hooks or agent frameworks."
+      ],
+      "whenNotToUse": [
+        "Routine application development."
+      ],
+      "command": "skillspector scan <target> --no-llm",
+      "automation": "manual"
+    },
+    {
+      "id": "headroom",
+      "name": "Headroom",
+      "kind": "infrastructure",
+      "status": "active",
+      "scope": "global-wrapper",
+      "role": "Transparent local context/proxy optimization beneath normal Claude Code CLI sessions.",
+      "whenToUse": [
+        "Automatic through the normal `claude` wrapper."
+      ],
+      "whenNotToUse": [
+        "Do not ask Claude to invoke it as a reasoning tool."
+      ],
+      "commands": [
+        "headroom doctor",
+        "headroom perf",
+        "claude-direct"
+      ],
+      "notes": [
+        "No Serena.",
+        "No Headroom MCP in the lean architecture.",
+        "Use claude-direct for bypass/diagnosis."
+      ],
+      "automation": "automatic"
+    },
+    {
+      "id": "graphify",
+      "name": "Graphify",
+      "kind": "optional",
+      "status": "occasional",
+      "scope": "global-cli",
+      "role": "Visual/exportable or multimodal graph generation.",
+      "whenToUse": [
+        "A visual, exportable or multimodal graph is explicitly useful."
+      ],
+      "whenNotToUse": [
+        "Routine source architecture, call-path or blast-radius analysis."
+      ],
+      "notes": [
+        "Codebase Memory is the default day-to-day graph system."
+      ],
+      "automation": "manual"
+    }
+  ],
+  "stackFooter": {
+    "format": "[STACK] CBM: yes|no | Reach: yes|no | Skills: <names|none> | Agents: <names/count|none> | SkillSpector: yes|no | Headroom: routed"
+  }
+}

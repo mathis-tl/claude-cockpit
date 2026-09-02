@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-91.6 -15.9 188.0 132.3" role="img" aria-hidden="true">
+  <g stroke-linejoin="round">
+  <polygon points="0.00,9.42 86.40,59.28 4.80,106.37 -81.60,56.51" fill="#1D1D1F" stroke="none" opacity="0.13"/>
+  <polygon points="86.40,49.86 4.80,96.95 4.80,91.01 86.40,43.92" fill="#E6E6EB" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="-81.60,47.09 4.80,96.95 4.80,91.01 -81.60,41.15" fill="#CDCDD5" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="0.00,-5.94 86.40,43.92 4.80,91.01 -81.60,41.15" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polyline points="-26.40,25.91 51.60,43.23" fill="none" stroke="#1B94AC" stroke-width="5.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="-26.40,25.91 33.60,64.69" fill="none" stroke="#1D1D1F" stroke-width="5.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="-26.40,25.91 -3.60,75.08" fill="none" stroke="#1D1D1F" stroke-width="5.0" stroke-linecap="round" stroke-linejoin="round"/>
+  <polygon points="-9.60,25.91 -26.40,35.61 -26.40,19.41 -9.60,9.71" fill="#E6E6EB" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="-43.20,25.91 -26.40,35.61 -26.40,19.41 -43.20,9.71" fill="#CDCDD5" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="-26.40,0.02 -9.60,9.71 -26.40,19.41 -43.20,9.71" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="68.40,43.23 51.60,52.92 51.60,21.87 68.40,12.18" fill="#8ED9E9" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="34.80,43.23 51.60,52.92 51.60,21.87 34.80,12.18" fill="#63C2D8" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="51.60,2.48 68.40,12.18 51.60,21.87 34.80,12.18" fill="#BDEDF6" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="50.40,64.69 33.60,74.39 33.60,59.54 50.40,49.84" fill="#E6E6EB" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="16.80,64.69 33.60,74.39 33.60,59.54 16.80,49.84" fill="#CDCDD5" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="33.60,40.15 50.40,49.84 33.60,59.54 16.80,49.84" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="13.20,75.08 -3.60,84.78 -3.60,69.93 13.20,60.23" fill="#E6E6EB" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="-20.40,75.08 -3.60,84.78 -3.60,69.93 -20.40,60.23" fill="#CDCDD5" stroke="#1D1D1F" stroke-width="2.2"/>
+  <polygon points="-3.60,50.54 13.20,60.23 -3.60,69.93 -20.40,60.23" fill="#FFFFFF" stroke="#1D1D1F" stroke-width="2.2"/>
+  </g>
+</svg>

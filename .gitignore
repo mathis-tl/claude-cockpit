@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+
+# Rust / Tauri build output
+src-tauri/target
+src-tauri/gen/schemas
+
+# Machine-local Claude Code settings (absolute paths, local endpoints)
+.claude/

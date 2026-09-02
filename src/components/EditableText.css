@@ -1,0 +1,85 @@
+/* Note-like editing: nothing here should look like a form until it is one. */
+
+.editable {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.editable__text {
+  margin: 0;
+  color: var(--ink-dim);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.editable__text--empty {
+  color: var(--ink-faint);
+  font-style: italic;
+}
+
+.editable__edit {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: var(--radius-sm);
+  color: var(--ink-faint);
+  opacity: 0;
+  transition:
+    opacity var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.editable:hover .editable__edit,
+.editable__edit:focus-visible {
+  opacity: 1;
+}
+
+.editable__edit:hover {
+  color: var(--claude-ink);
+}
+
+.editable__state {
+  display: inline-flex;
+  align-items: baseline;
+  color: var(--ink-faint);
+  font-size: 11px;
+  gap: var(--space-2);
+}
+
+.editable__restore {
+  color: var(--claude-ink);
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+.editable--active {
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-1);
+}
+
+.editable__input {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  resize: none;
+}
+
+.editable__input:focus {
+  border-color: var(--claude);
+  outline: none;
+}
+
+.editable__hint {
+  margin: 0;
+  color: var(--ink-faint);
+  font-size: 11px;
+}

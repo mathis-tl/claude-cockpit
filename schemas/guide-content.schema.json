@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Claude Cockpit Guide Content",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "guideVersion",
+    "updatedAt",
+    "categories",
+    "quickCommands",
+    "workflows"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "guideVersion": {
+      "type": "string"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "description",
+          "connections",
+          "icon",
+          "image",
+          "mapRole",
+          "position",
+          "next",
+          "references"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "connections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "icon": {
+            "type": "string",
+            "minLength": 1
+          },
+          "image": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mapRole": {
+            "enum": [
+              "hub",
+              "station",
+              "terminal",
+              "band"
+            ]
+          },
+          "position": {
+            "type": "object",
+            "required": [
+              "x",
+              "y"
+            ],
+            "properties": {
+              "x": {
+                "type": "number"
+              },
+              "y": {
+                "type": "number"
+              }
+            },
+            "additionalProperties": false
+          },
+          "next": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "quickCommands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "command",
+          "purpose",
+          "tags"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "workflows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "title",
+          "icon",
+          "summary",
+          "tags",
+          "whenToUse",
+          "whenNotToUse",
+          "stack",
+          "steps",
+          "promptTemplate",
+          "antiPatterns",
+          "related",
+          "automation"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "icon": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "whenToUse": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "whenNotToUse": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "stack": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "steps": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "promptTemplate": {
+            "type": "string"
+          },
+          "antiPatterns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "related": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "featured": {
+            "type": "boolean"
+          },
+          "automation": {
+            "enum": [
+              "automatic",
+              "manual",
+              "mixed"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}
